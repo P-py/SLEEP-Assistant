@@ -22,7 +22,7 @@ def getUserName():
     try:
         # Uses the default API key
         # To use another API key: `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-        user_name = r.recognize_google(audio)
+        user_name = r.recognize_google(audio, language='pt-BR')
         print("You said: " + user_name)
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
@@ -96,13 +96,13 @@ def jarvis(data):
     if "list of functions" in data:
         speak("Do you need help with my functions? Here it's a list of what can I do")
         time.sleep(.5)
-        speak("Wait function, If the user says 'wait + time in seconds' I will sleep and wait;")
-        speak("How are you function;")
-        speak("What time is it function, if the user says 'what time is it' I will answer the day, day of the week, hour and minutes;")
-        speak("What's the weather like in, if the user says 'what's the weather like in + location' I will show the weather there;")
-        speak("Where is function, If the user says 'where is + location' I will show the location asked;")
-        speak("Shut down computer function, I can shutdown your computer for you, just say 'shut down computer' and it will turn off in 30 seconds;")
-        speak("Let's see my e-mails function, say 'let's see my e-mails' and I will show you;")
+        speak("1 - Wait function, If the user says 'wait + time in seconds' I will sleep and wait;")
+        speak("2 - How are you function;")
+        speak("3 - What time is it function, if the user says 'what time is it' I will answer the day, day of the week, hour and minutes;")
+        speak("4 - What's the weather like in, if the user says 'what's the weather like in + location' I will show the weather there;")
+        speak("5 - Where is function, If the user says 'where is + location' I will show the location asked;")
+        speak("6 - Shut down computer function, I can shutdown your computer for you, just say 'shut down computer' and it will turn off in 30 seconds;")
+        speak("7 - Let's see my e-mails function, say 'let's see my e-mails' and I will show you;")
     if "wait" in data:
         data = data.split(' ')
         time_to_sleep = data[1]
@@ -158,9 +158,6 @@ def jarvis(data):
     if "let's see my emails" in data:
         speak("Opening your e-mails")
         os.system("start msedge https://mail.google.com/mail/u/0/#inbox")
-
-    else:
-        speak("Sorry, this is not a function and I didn't understand what you said.")
 
 # initialization
 time.sleep(2)
