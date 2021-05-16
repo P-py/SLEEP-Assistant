@@ -42,13 +42,9 @@ def greeting():
     time.sleep(1)
     speak("Hello! I'am SLEEP, your personal assistant.")
     time.sleep(1)
-    speak("I'm in version 0.1, my functions now are:")
+    speak("I'm in version 0.1 and it's a pleasure to help you")
     time.sleep(.5)
-    speak("Wait function, If the user says 'wait + time in seconds' I will sleep and wait;")
-    speak("How are you function;")
-    speak("What time is it function, if the user says 'what time is it' I will answer the day, day of the week, hour and minutes;")
-    speak("What's the weather like in, if the user says 'what's the weather like in + location' I will show the weather there.")
-    speak("Shut down computer function, I can shutdown your computer for you, just say 'shut down computer' and it will turn off in 30 seconds.")
+    speak("If you need help with my functions just say 'list of functions' and I will give you a complete list of my functions")
     time.sleep(.3)
 
 
@@ -96,7 +92,17 @@ def terminate(data):
             else:
                 pass
             
-def jarvis(data):    
+def jarvis(data):
+    if "list of functions" in data:
+        speak("Do you need help with my functions? Here it's a list of what can I do")
+        time.sleep(.5)
+        speak("Wait function, If the user says 'wait + time in seconds' I will sleep and wait;")
+        speak("How are you function;")
+        speak("What time is it function, if the user says 'what time is it' I will answer the day, day of the week, hour and minutes;")
+        speak("What's the weather like in, if the user says 'what's the weather like in + location' I will show the weather there;")
+        speak("Where is function, If the user says 'where is + location' I will show the location asked;")
+        speak("Shut down computer function, I can shutdown your computer for you, just say 'shut down computer' and it will turn off in 30 seconds;")
+        speak("Let's see my e-mails function, say 'let's see my e-mails' and I will show you;")
     if "wait" in data:
         data = data.split(' ')
         time_to_sleep = data[1]
@@ -148,6 +154,13 @@ def jarvis(data):
             os.system("start msedge https://classroom.google.com/u/1/c/MjM0NzIyNjAzMjQz")
         else:
             pass
+    
+    if "let's see my emails" in data:
+        speak("Opening your e-mails")
+        os.system("start msedge https://mail.google.com/mail/u/0/#inbox")
+
+    else:
+        speak("Sorry, this is not a function and I didn't understand what you said.")
 
 # initialization
 time.sleep(2)
