@@ -37,6 +37,20 @@ def speak(audioString):
     engine.say(audioString)
     engine.runAndWait()
 
+def greeting():
+    speak("Initializing the system...")
+    time.sleep(1)
+    speak("Hello! I'am SLEEP, your personal assistant.")
+    time.sleep(1)
+    speak("I'm in version 0.1, my functions now are:")
+    time.sleep(.5)
+    speak("Wait function, If the user says 'wait + time in seconds' I will sleep and wait;")
+    speak("How are you function;")
+    speak("What time is it function, if the user says 'what time is it' I will answer the day, day of the week, hour and minutes;")
+    speak("What's the weather like in, if the user says 'what's the weather like in + location' I will show the weather there.")
+    speak("Shut down computer function, I can shutdown your computer for you, just say 'shut down computer' and it will turn off in 30 seconds.")
+    time.sleep(.3)
+
 
 def recordAudio():
     # Record Audio
@@ -137,7 +151,8 @@ def jarvis(data):
 
 # initialization
 time.sleep(2)
-speak("Hello user, how should I call you?")
+greeting()
+speak("So, how should I call you?")
 user_name = getUserName()
 speak(f"Hello {user_name}, what can I help you with?")
 while 1:
