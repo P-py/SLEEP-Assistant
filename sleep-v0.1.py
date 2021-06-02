@@ -172,3 +172,5 @@ speak(f"Hello {user_name}, what can I help you with?")
 while 1:
     data = recordAudio()
     sleep(data)
+
+#Avoid using complex sentences, be objective, the more direct you are with the bot, the better the interpretation and voice recognition.
