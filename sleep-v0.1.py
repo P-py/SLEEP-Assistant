@@ -72,7 +72,7 @@ def recordAudio():
 
     return data
 
-
+#Function to confirm the shutdown of SLEEP
 def terminate(data):
     for word in words_to_terminate:
         if word in data:
@@ -94,8 +94,9 @@ def terminate(data):
                 exit()
             else:
                 pass
-            
-def jarvis(data):
+
+#Main function, makes everything work together.      
+def sleep(data):
     if "list of functions" in data:
         speak("Do you need help with my functions? Here it's a list of what can I do")
         time.sleep(.5)
@@ -163,11 +164,11 @@ def jarvis(data):
         os.system("start msedge https://mail.google.com/mail/u/0/#inbox")
 
 # initialization
-time.sleep(2)
-greeting()
-speak("So, how should I call you?")
-user_name = getUserName()
+time.sleep(2) #Time to boot properly.
+greeting() #Makes the greetings.
+speak("So, how should I call you?") #Asks for the user preferred username.
+user_name = getUserName() #Gets the input and changes the user_name variable.
 speak(f"Hello {user_name}, what can I help you with?")
 while 1:
     data = recordAudio()
-    jarvis(data)
+    sleep(data)
