@@ -8,6 +8,7 @@ from gtts import gTTS #Google text-to-speech
 from pygame import mixer #Playing audios
 import random #Randomize some answers
 
+#Words that can be used by the user to shutdown the program.
 words_to_terminate = ['bye', 'shutdown', 'exit', 'quit', 'gotosleep', 'goodbye']
 user_name = ""
 
@@ -31,12 +32,14 @@ def getUserName():
     
     return user_name
 
+#Used to make SLEEP say something
 def speak(audioString):
     print(audioString)
     engine = pyttsx3.init()
     engine.say(audioString)
     engine.runAndWait()
 
+#Greets the user
 def greeting():
     speak("Initializing the system...")
     time.sleep(1)
@@ -47,7 +50,7 @@ def greeting():
     speak("If you need help with my functions just say 'list of functions' and I will give you a complete list of my functions")
     time.sleep(.3)
 
-
+#Gets the user audio input
 def recordAudio():
     # Record Audio
     r = sr.Recognizer()
