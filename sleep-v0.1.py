@@ -1,12 +1,12 @@
 from os.path import sameopenfile
-import speech_recognition as sr
-from time import ctime
-import time
-import os
-import pyttsx3
-from gtts import gTTS
-from pygame import mixer
-import random
+import speech_recognition as sr #Get the audio input from the user
+from time import ctime #Current time
+import time #Time Intervals
+import os #Natural O.S functions
+import pyttsx3 #Python text-to-speech-3
+from gtts import gTTS #Google text-to-speech
+from pygame import mixer #Playing audios
+import random #Randomize some answers
 
 words_to_terminate = ['bye', 'shutdown', 'exit', 'quit', 'gotosleep', 'goodbye']
 user_name = ""
