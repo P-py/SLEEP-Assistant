@@ -1,3 +1,9 @@
+"""
+SLEEP personal assistant - coded and created by Pedro Salviano
+
+Enjoy using it, if you can, read all the code, especially the comments, so you can understand yhe functions and use it well.
+"""
+
 from os.path import sameopenfile
 import speech_recognition as sr #Get the audio input from the user
 from time import ctime #Current time
