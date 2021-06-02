@@ -149,19 +149,19 @@ def sleep(data):
         area = data[1]
         if area == 'mathematics':
             speak("Opening your fucking fundamental math classroom, lets'go")
-            os.system("start msedge https://classroom.google.com/u/1/c/MTk3MjY4MDI1MjI0")
+            os.system("start msedge https://classroom.google.com")
         if area == 'chemistry':
             speak("Opening your chemistry classroom, let's cook some meth in the kitchen, like Heisenberg")
-            os.system("start msedge https://classroom.google.com/u/1/c/MjM0MzkwODEwNDU1")
+            os.system("start msedge https://classroom.google.com")
         if area == 'history':
             speak("Opening your history classroom, let's conquer Jerusalém man.")
-            os.system("start msedge https://classroom.google.com/u/1/c/MTk3MjQzMzU5MDAx")
+            os.system("start msedge https://classroom.google.com")
         if area == 'glass':
             speak("Opening your physics 1 classroom. Double physics bro? What. the. fuck.")
-            os.system("start msedge https://classroom.google.com/u/1/c/MjM0MjU3MTk0Mzgz")
+            os.system("start msedge https://classroom.google.com")
         if area.lower() == 'electro':
             speak("Opening your physics 2 classroom.")
-            os.system("start msedge https://classroom.google.com/u/1/c/MjM0NzIyNjAzMjQz")
+            os.system("start msedge https://classroom.google.com")
         else:
             pass
     
