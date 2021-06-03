@@ -170,6 +170,7 @@ def sleep(data):
         speak("Opening your e-mails")
         os.system("start msedge https://mail.google.com/mail/u/0/#inbox")
     
+    #Checks if one of the quit-words is in the new data.
     terminate(data)
 
 # initialization
