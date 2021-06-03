@@ -114,12 +114,14 @@ def sleep(data):
         speak("5 - Where is function, If the user says 'where is + location' I will show the location asked;")
         speak("6 - Shut down computer function, I can shutdown your computer for you, just say 'shut down computer' and it will turn off in 30 seconds;")
         speak("7 - Let's see my e-mails function, say 'let's see my e-mails' and I will show you;")
+        speak("8 - 'Show me pictures of' function, if the user says 'show me pictures of + thing' I will open it in the browser.")
     if "wait" in data:
         data = data.split(' ')
         time_to_sleep = data[1]
         speak(f"Ok, I will wait you commands for {time_to_sleep} seconds")
         time.sleep(int(time_to_sleep))
         speak(f"Hello, can I help you now {user_name}?")
+    
     if "how are you" in data:
         responses = ["better than you, bro.", "I'm fine, hope you having a good fucking day too.", "That is out of your bussiness", "I'm fine, ready to help."]
         response = random.choice(responses)
@@ -169,6 +171,12 @@ def sleep(data):
     if "let's see my emails" in data:
         speak("Opening your e-mails")
         os.system("start msedge https://mail.google.com/mail/u/0/#inbox")
+    
+    if "show me pictures of" in data:
+        speak("Ok, I will show you!")
+        data = data.split(" ")
+        string = "+".join(data)
+        os.system("start msedge https://www.google.com/search?q=" + string)
     
     #Checks if one of the quit-words is in the new data.
     terminate(data)
