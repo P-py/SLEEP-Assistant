@@ -55,6 +55,7 @@ def greeting():
     time.sleep(.5)
     speak("If you need help with my functions just say 'list of functions' and I will give you a complete list of my functions")
     time.sleep(.3)
+    speak("In the case you want to turn me off just say one of the following words: bye, shutdown, exit, quit, gotosleep, goodbye.")
 
 #Gets the user audio input
 def recordAudio():
@@ -95,7 +96,7 @@ def terminate(data):
                 print("Google Speech Recognition could not understand audio")
             except sr.RequestError as e:
                 print("Could not request results from Google Speech Recognition service; {0}".format(e))
-            if "yes" or "yeah" or "for sure" or "affimative" in response:
+            if "yes" or "yeah" or "for sure" or "affirmative" in response:
                 speak(f"Ok, bye {user_name}, nice to meet you!")
                 exit()
             else:
@@ -168,6 +169,8 @@ def sleep(data):
     if "let's see my emails" in data:
         speak("Opening your e-mails")
         os.system("start msedge https://mail.google.com/mail/u/0/#inbox")
+    
+    terminate(data)
 
 # initialization
 time.sleep(2) #Time to boot properly.
