@@ -134,7 +134,7 @@ def sleep(data):
         data = data.split(" ")
         location = data[2]
         speak("Hold on, I will show you where " + location + " is.")
-        os.system("chromium-browser https://www.google.nl/maps/place/" + location + "/&amp;")
+        os.system("start msedge https://www.google.nl/maps/place/" + location + "/&amp;")
 
     if "shut down computer" in data:
         speak("shutting it down babe")
