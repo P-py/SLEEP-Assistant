@@ -29,7 +29,7 @@ def getUserName():
     try:
         # Uses the default API key
         # To use another API key: `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-        user_name = r.recognize_google(audio, language='pt-BR')
+        user_name = r.recognize_google(audio)
         print("You said: " + user_name)
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
@@ -42,6 +42,8 @@ def getUserName():
 def speak(audioString):
     print(audioString)
     engine = pyttsx3.init()
+    voices = engine.getProperty('voices')
+    engine.setProperty('voice', voices[1].id)
     engine.say(audioString)
     engine.runAndWait()
 
