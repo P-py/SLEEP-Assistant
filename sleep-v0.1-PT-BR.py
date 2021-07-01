@@ -49,22 +49,22 @@ def speak(audioString):
 
 #Cumprimenta o usuário
 def greeting():
-    speak("Initializing the system...")
+    speak("Inicializando...")
     time.sleep(1)
-    speak("Hello! I'am SLEEP, your personal assistant.")
+    speak("Olá! Eu sou SLEEP, sua assitente pessoal.")
     time.sleep(1)
-    speak("I'm in version 0.1 and it's a pleasure to help you")
+    speak("Estou na versão 0.1 e é um prazer te ajudar!")
     time.sleep(.5)
-    speak("If you need help with my functions just say 'list of functions' and I will give you a complete list of my functions")
+    speak("Se precisar de ajuda com as minhas funções apenas diga 'lista de funções' e eu irei te dar uma lista completa com todas as minhas funcionalidades.")
     time.sleep(.3)
-    speak("In the case you want to turn me off just say one of the following words: bye, shutdown, exit, quit, gotosleep, goodbye.")
+    speak("No caso onde você queria me desligar apenas diga: 'desligar'.")
 
 #Pega a entrada de áudio do usuário
 def recordAudio():
     #Grava a entrada de áudio
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Waiting for the user")
+        print("Aguardando o usuário.")
         audio = r.listen(source)
 
     #Reconhecimento de voz utilizando API do google.
@@ -73,7 +73,7 @@ def recordAudio():
         #Usa a API-KEY padrão
         #Para utilizar outra API-KEY: `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
         data = r.recognize_google(audio)
-        print("You said: " + data)
+        print("Você disse: " + data)
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
     except sr.RequestError as e:
@@ -85,66 +85,67 @@ def recordAudio():
 def terminate(data):
     for word in words_to_terminate:
         if word in data:
-            speak("Do you want to turn me off?")
+            speak("Deseja me desligar?")
             r = sr.Recognizer()
             with sr.Microphone() as source:
-                print("Say something!")
+                print("Diga algo! (Confirme sua resposta)")
                 audio = r.listen(source)
             response = ""
             try:
                 response = r.recognize_google(audio)
-                print("You said: " + data)
+                print("Você idsse: " + data)
             except sr.UnknownValueError:
                 print("Google Speech Recognition could not understand audio")
             except sr.RequestError as e:
                 print("Could not request results from Google Speech Recognition service; {0}".format(e))
-            if "yes" or "yeah" or "for sure" or "affirmative" in response:
-                speak(f"Ok, bye {user_name}, nice to meet you!")
+            if "sim" or "com certeza" or "afirmativo" in response:
+                speak(f"Ok, até mais {user_name}, foi um prazer falar com você!")
                 exit()
             else:
                 pass
 
 #Função principal, faz tudo funcionar junto.      
 def sleep(data):
-    if "list of functions" in data:
-        speak("Do you need help with my functions? Here it's a list of what can I do")
+    if "lista de funções" in data:
+        speak("Precisa de ajuda com as minhas funções? Aqui vai uma lista do que posso fazer.")
         time.sleep(.5)
-        speak("1 - Wait function, If the user says 'wait + time in seconds' I will sleep and wait;")
-        speak("2 - How are you function;")
-        speak("3 - What time is it function, if the user says 'what time is it' I will answer the day, day of the week, hour and minutes;")
-        speak("4 - What's the weather like in, if the user says 'what's the weather like in + location' I will show the weather there;")
-        speak("5 - Where is function, If the user says 'where is + location' I will show the location asked;")
-        speak("6 - Shut down computer function, I can shutdown your computer for you, just say 'shut down computer' and it will turn off in 30 seconds;")
-        speak("7 - Let's see my e-mails function, say 'let's see my e-mails' and I will show you;")
-        speak("8 - 'Show me pictures of' function, if the user says 'show me pictures of + thing' I will open it in the browser.")
-    if "wait" in data:
+        speak("1 - Função de esperar, se o usuário disser 'esperar + tempo em segundos' eu irei dormir e esperar.")
+        speak("2 - Função 'Como você está?';")
+        speak("3 - Função 'Que horas são?', se o usuário disser 'Que horas são?' eu irei responder o dia, dia da semana, hora e minutos atuais.")
+        speak("4 - Função 'Como está o clima em ...', se o usuário disseer 'Como está o clima em ...' + localização eu irei mostrar o clima em tal, vale lembrar que é necessária uma conexão com a internet para a realização de tal função.")
+        speak("5 - Função 'Onde é...', no caso onde o usuário disser 'Onde é + localização' eu irei mostrar o local perguntado.")
+        speak("6 - Função de desligar o computador, caso queira que eu desligue seu computador apenas diga 'delisgar computador' e eu irei.")
+        speak("7 - Função 'Vamos ver meus e-mails', caso o usuário diga 'vamos ver meus e-mails' eu o mostrarei.")
+        speak("8 - Função 'Me mostre fotos de ...', caso o usuário diga 'me mostre fotos de + objeto/pessoa/animal' eu irei mostrar, essa função também precisa de uma conexão com a Internet para ser realizada.")
+    
+    if "esperar" in data:
         data = data.split(' ')
         time_to_sleep = data[1]
-        speak(f"Ok, I will wait you commands for {time_to_sleep} seconds")
+        speak(f"Ok, eu esperarei por seus comandos por {time_to_sleep} seconds")
         time.sleep(int(time_to_sleep))
-        speak(f"Hello, can I help you now {user_name}?")
+        speak(f"Olá, posso te ajudar agora {user_name}?")
     
-    if "how are you" in data:
-        responses = ["better than you, bro.", "I'm fine, hope you having a good fucking day too.", "That is out of your bussiness", "I'm fine, ready to help."]
+    if "como você está" in data:
+        responses = ["Melhor que você.", "Estou bem, espero que você também esteja tendo um dia ótimo.", "Isso não te interessa.", "Estou bem, pronto para ajudar."]
         response = random.choice(responses)
         speak(response)
 
-    if "what time is it" in data:
+    if "que horas são" in data:
         speak(ctime())
 
-    if "where is" in data:
+    if "onde é" in data:
         data = data.split(" ")
         location = data[2]
-        speak("Hold on, I will show you where " + location + " is.")
+        speak("Espere um pouco, te mostrarei onde " + location + " é.")
         os.system("start msedge https://www.google.nl/maps/place/" + location + "/&amp;")
 
-    if "shut down computer" in data:
-        speak("shutting it down babe")
-        speak("Your computer will be shutt down in 30 seconds")
+    if "desligar computador" in data:
+        speak("Desligando!")
+        speak("Seu computador será desligado em 30 segundos.")
         os.system("shutdown /s /t 30")
 
-    if "what's the weather like in" in data:
-        speak("Ok, I will show you")
+    if "como está o clima em" in data:
+        speak("Ok, irei te mostrar agora.")
         data = data.split(" ")
         string = "+".join(data)
         os.system("start msedge https://www.google.com/search?q=" + string)
@@ -170,12 +171,12 @@ def sleep(data):
         else:
             pass
     
-    if "let's see my emails" in data:
-        speak("Opening your e-mails")
+    if "vamos ver meus emails" or "vamos ver meus e-mails" in data:
+        speak("Abrindo seus e-mails.")
         os.system("start msedge https://mail.google.com/mail/u/0/#inbox")
     
-    if "show me pictures of" in data:
-        speak("Ok, I will show you!")
+    if "me mostre fotos de" in data:
+        speak("Ok, eu irei te mostrar!")
         data = data.split(" ")
         string = "+".join(data)
         os.system("start msedge https://www.google.com/search?q=" + string)
@@ -186,9 +187,9 @@ def sleep(data):
 #Inicialização.
 time.sleep(2)
 greeting()
-speak("So, how should I call you?")
+speak("Então, como devo te chamar?")
 user_name = getUserName()
-speak(f"Hello {user_name}, what can I help you with?")
+speak(f"Olá {user_name}, com o que posso te ajudar?")
 while 1:
     data = recordAudio()
     sleep(data)
