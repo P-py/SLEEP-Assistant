@@ -21,16 +21,16 @@ user_name = ""
 def getUserName():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Say something!")
+        print("Diga algo!")
         audio = r.listen(source)
 
-    # Speech recognition using Google Speech Recognition
+    # Reconhecimento de fala utilizando a API do google.
     user_name = ""
     try:
-        # Uses the default API key
-        # To use another API key: `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
+        # Usa a API-key padrão.
+        # Para utilizar outra API-KEY: `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
         user_name = r.recognize_google(audio, language='PT-BR')
-        print("You said: " + user_name)
+        print("Você disse: " + user_name)
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
     except sr.RequestError as e:
@@ -38,7 +38,7 @@ def getUserName():
     
     return user_name
 
-#Used to make SLEEP say something
+#Função utilizada para fazer SLEEP dizer algo.
 def speak(audioString):
     print(audioString)
     engine = pyttsx3.init()
@@ -47,7 +47,7 @@ def speak(audioString):
     engine.say(audioString)
     engine.runAndWait()
 
-#Greets the user
+#Cumprimenta o usuário
 def greeting():
     speak("Initializing the system...")
     time.sleep(1)
@@ -59,19 +59,19 @@ def greeting():
     time.sleep(.3)
     speak("In the case you want to turn me off just say one of the following words: bye, shutdown, exit, quit, gotosleep, goodbye.")
 
-#Gets the user audio input
+#Pega a entrada de áudio do usuário
 def recordAudio():
-    # Record Audio
+    #Grava a entrada de áudio
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Waiting for the user")
         audio = r.listen(source)
 
-    # Speech recognition using Google Speech Recognition
+    #Reconhecimento de voz utilizando API do google.
     data = ""
     try:
-        # Uses the default API key
-        # To use another API key: `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
+        #Usa a API-KEY padrão
+        #Para utilizar outra API-KEY: `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
         data = r.recognize_google(audio)
         print("You said: " + data)
     except sr.UnknownValueError:
@@ -81,7 +81,7 @@ def recordAudio():
 
     return data
 
-#Function to confirm the shutdown of SLEEP
+#Função para confirmar o desligamento do SLEEP
 def terminate(data):
     for word in words_to_terminate:
         if word in data:
@@ -104,7 +104,7 @@ def terminate(data):
             else:
                 pass
 
-#Main function, makes everything work together.      
+#Função principal, faz tudo funcionar junto.      
 def sleep(data):
     if "list of functions" in data:
         speak("Do you need help with my functions? Here it's a list of what can I do")
@@ -180,17 +180,17 @@ def sleep(data):
         string = "+".join(data)
         os.system("start msedge https://www.google.com/search?q=" + string)
     
-    #Checks if one of the quit-words is in the new data.
+    #Verifica se uma das palavras para terminar está em 'data'.
     terminate(data)
 
-# initialization
-time.sleep(2) #Time to boot properly.
-greeting() #Makes the greetings.
-speak("So, how should I call you?") #Asks for the user preferred username.
-user_name = getUserName() #Gets the input and changes the user_name variable.
+#Inicialização.
+time.sleep(2)
+greeting()
+speak("So, how should I call you?")
+user_name = getUserName()
 speak(f"Hello {user_name}, what can I help you with?")
 while 1:
     data = recordAudio()
     sleep(data)
 
-#Avoid using complex sentences, be objective, the more direct you are with the bot, the better the interpretation and voice recognition.
+#Evite utilizar frases complexas, seja objetivo, quanto mais objetivo você for melhor o reconhecimento de fala funcionará.
