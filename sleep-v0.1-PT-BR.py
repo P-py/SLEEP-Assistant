@@ -14,8 +14,8 @@ from gtts import gTTS #Google text-to-speech
 from pygame import mixer #Tocar áudios
 import random #Aleatorizar algumas respostas, para que não fique repetitivo.
 
-#Words that can be used by the user to shutdown the program.
-words_to_terminate = ['bye', 'shutdown', 'exit', 'quit', 'gotosleep', 'goodbye']
+#Palavras que podem ser utilizadas para finalizar o programa.
+words_to_terminate = ['desligar']
 user_name = ""
 
 def getUserName():
@@ -29,7 +29,7 @@ def getUserName():
     try:
         # Uses the default API key
         # To use another API key: `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-        user_name = r.recognize_google(audio)
+        user_name = r.recognize_google(audio, language='PT-BR')
         print("You said: " + user_name)
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
