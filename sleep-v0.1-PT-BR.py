@@ -51,13 +51,13 @@ def speak(audioString):
 def greeting():
     speak("Inicializando...")
     time.sleep(1)
-    speak("Olá! Eu sou SLEEP, sua assitente pessoal.")
+    speak("Olá! Eu sou SLEEP, sua assistente pessoal.")
     time.sleep(1)
     speak("Estou na versão 0.1 e é um prazer te ajudar!")
     time.sleep(.5)
     speak("Se precisar de ajuda com as minhas funções apenas diga 'lista de funções' e eu irei te dar uma lista completa com todas as minhas funcionalidades.")
     time.sleep(.3)
-    speak("No caso onde você queria me desligar apenas diga: 'desligar'.")
+    speak("No caso onde você queira me desligar apenas diga: 'desligar'.")
 
 #Pega a entrada de áudio do usuário
 def recordAudio():
@@ -72,7 +72,7 @@ def recordAudio():
     try:
         #Usa a API-KEY padrão
         #Para utilizar outra API-KEY: `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-        data = r.recognize_google(audio)
+        data = r.recognize_google(audio, language='PT-BR')
         print("Você disse: " + data)
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
@@ -92,7 +92,7 @@ def terminate(data):
                 audio = r.listen(source)
             response = ""
             try:
-                response = r.recognize_google(audio)
+                response = r.recognize_google(audio, language='PT-BR')
                 print("Você idsse: " + data)
             except sr.UnknownValueError:
                 print("Google Speech Recognition could not understand audio")
@@ -112,16 +112,16 @@ def sleep(data):
         speak("1 - Função de esperar, se o usuário disser 'esperar + tempo em segundos' eu irei dormir e esperar.")
         speak("2 - Função 'Como você está?';")
         speak("3 - Função 'Que horas são?', se o usuário disser 'Que horas são?' eu irei responder o dia, dia da semana, hora e minutos atuais.")
-        speak("4 - Função 'Como está o clima em ...', se o usuário disseer 'Como está o clima em ...' + localização eu irei mostrar o clima em tal, vale lembrar que é necessária uma conexão com a internet para a realização de tal função.")
+        speak("4 - Função 'Como está o clima em ...', se o usuário disser 'Como está o clima em ...' + localização eu irei mostrar o clima em tal, vale lembrar que é necessária uma conexão com a internet para a realização de tal função.")
         speak("5 - Função 'Onde é...', no caso onde o usuário disser 'Onde é + localização' eu irei mostrar o local perguntado.")
-        speak("6 - Função de desligar o computador, caso queira que eu desligue seu computador apenas diga 'delisgar computador' e eu irei.")
+        speak("6 - Função de desligar o computador, caso queira que eu desligue seu computador apenas diga 'desligar computador' e eu irei.")
         speak("7 - Função 'Vamos ver meus e-mails', caso o usuário diga 'vamos ver meus e-mails' eu o mostrarei.")
         speak("8 - Função 'Me mostre fotos de ...', caso o usuário diga 'me mostre fotos de + objeto/pessoa/animal' eu irei mostrar, essa função também precisa de uma conexão com a Internet para ser realizada.")
     
     if "esperar" in data:
         data = data.split(' ')
         time_to_sleep = data[1]
-        speak(f"Ok, eu esperarei por seus comandos por {time_to_sleep} seconds")
+        speak(f"Ok, eu esperarei por seus comandos por {time_to_sleep} segundos.")
         time.sleep(int(time_to_sleep))
         speak(f"Olá, posso te ajudar agora {user_name}?")
     
@@ -130,7 +130,7 @@ def sleep(data):
         response = random.choice(responses)
         speak(response)
 
-    if "que horas são" in data:
+    if "Que horas são" in data:
         speak(ctime())
 
     if "onde é" in data:
@@ -150,28 +150,7 @@ def sleep(data):
         string = "+".join(data)
         os.system("start msedge https://www.google.com/search?q=" + string)
     
-    if "classroom" in data:
-        data = data.split(" ")
-        area = data[1]
-        if area == 'mathematics':
-            speak("Opening your fucking fundamental math classroom, lets'go")
-            os.system("start msedge https://classroom.google.com")
-        if area == 'chemistry':
-            speak("Opening your chemistry classroom, let's cook some meth in the kitchen, like Heisenberg")
-            os.system("start msedge https://classroom.google.com")
-        if area == 'history':
-            speak("Opening your history classroom, let's conquer Jerusalém man.")
-            os.system("start msedge https://classroom.google.com")
-        if area == 'glass':
-            speak("Opening your physics 1 classroom. Double physics bro? What. the. fuck.")
-            os.system("start msedge https://classroom.google.com")
-        if area.lower() == 'electro':
-            speak("Opening your physics 2 classroom.")
-            os.system("start msedge https://classroom.google.com")
-        else:
-            pass
-    
-    if "vamos ver meus emails" or "vamos ver meus e-mails" in data:
+    if "vamos ver meus emails" in data:
         speak("Abrindo seus e-mails.")
         os.system("start msedge https://mail.google.com/mail/u/0/#inbox")
     
