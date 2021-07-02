@@ -1,3 +1,5 @@
+#VERSION 0.1
+
 """
 SLEEP assistente pessoal - codado e criado por Pedro Salviano
 
