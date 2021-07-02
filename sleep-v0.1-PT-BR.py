@@ -144,7 +144,7 @@ def sleep(data):
         speak("Seu computador será desligado em 30 segundos.")
         os.system("shutdown /s /t 30")
 
-    if "como está o clima em" in data:
+    if "Como está o clima em" in data:
         speak("Ok, irei te mostrar agora.")
         data = data.split(" ")
         string = "+".join(data)
