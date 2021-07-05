@@ -164,7 +164,7 @@ def sleep(data):
         os.system("start msedge https://www.google.com/search?q=" + string)
 
     if "verifique o sistema" in data:
-        speak("Começando verificação do sistema.")
+        speak("Iniciando verificação do sistema.")
         os.system("sfc /scannow")
     
     #Verifica se uma das palavras para terminar está em 'data'.
