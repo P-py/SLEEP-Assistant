@@ -119,6 +119,7 @@ def sleep(data):
         speak("6 - Função de desligar o computador, caso queira que eu desligue seu computador apenas diga 'desligar computador' e eu irei.")
         speak("7 - Função 'Vamos ver meus e-mails', caso o usuário diga 'vamos ver meus e-mails' eu o mostrarei.")
         speak("8 - Função 'Me mostre fotos de ...', caso o usuário diga 'me mostre fotos de + objeto/pessoa/animal' eu irei mostrar, essa função também precisa de uma conexão com a Internet para ser realizada.")
+        speak("9 - Função de verificação do sistema, caso o usuário diga 'verifique o sistema' eu irei iniciar uma verificação através de uma ferramenta nativa.")
     
     if "esperar" in data:
         data = data.split(' ')
@@ -161,6 +162,10 @@ def sleep(data):
         data = data.split(" ")
         string = "+".join(data)
         os.system("start msedge https://www.google.com/search?q=" + string)
+
+    if "verifique o sistema" in data:
+        speak("Começando verificação do sistema.")
+        os.system("sfc /scannow")
     
     #Verifica se uma das palavras para terminar está em 'data'.
     terminate(data)
