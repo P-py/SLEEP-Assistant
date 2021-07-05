@@ -80,7 +80,7 @@ def recordAudio():
         print("Google Speech Recognition could not understand audio")
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
-
+    
     return data
 
 #Função para confirmar o desligamento do SLEEP
@@ -163,12 +163,13 @@ def sleep(data):
         string = "+".join(data)
         os.system("start msedge https://www.google.com/search?q=" + string)
 
-    if "verifique o sistema" in data:
-        speak("Iniciando verificação do sistema. Aguarde, isso pode demorar alguns segundos.")
+    if "Verifique o sistema" in data:
+        speak("Iniciando verificação do sistema. Aguarde, isso pode demorar alguns minutos.")
         resultado = os.system("sfc /scannow")
         if resultado == 0:
             speak("Verificação concluída - Nenhuma violação de integridade do sistema foi encontrada.")
-        
+        else:
+            speak("Verificação concluída - A integridade do sistema pode ter sido violada de alguma forma, é recomendado que tome providências para corrigir.")
     
     #Verifica se uma das palavras para terminar está em 'data'.
     terminate(data)
