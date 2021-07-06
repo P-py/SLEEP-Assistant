@@ -171,6 +171,11 @@ def sleep(data):
         else:
             speak("Verificação concluída - A integridade do sistema pode ter sido violada de alguma forma, é recomendado que tome providências para corrigir.")
     
+    if "Bom dia" in data:
+        speak(f"Bom dia {user_name}.")
+        speak(f"A data e horário atuais são {ctime()}")
+        speak(f"Irei te mostrar as principais notícias.")
+        os.system("start msedge https://news.google.com/")
     #Verifica se uma das palavras para terminar está em 'data'.
     terminate(data)
 
