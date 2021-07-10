@@ -142,7 +142,7 @@ def sleep(data):
         speak("Espere um pouco, te mostrarei onde " + location + " é.")
         os.system("start msedge https://www.google.nl/maps/place/" + location + "/&amp;")
 
-    if "desligar computador" in data:
+    if "Desligar computador" in data:
         speak("Desligando!")
         speak("Seu computador será desligado em 30 segundos.")
         os.system("shutdown /s /t 30")
