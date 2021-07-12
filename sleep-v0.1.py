@@ -88,7 +88,7 @@ def terminate(data):
             speak("Do you want to turn me off?")
             r = sr.Recognizer()
             with sr.Microphone() as source:
-                print("Say something!")
+                print("Say something! (Please onfirm your answer)")
                 audio = r.listen(source)
             response = ""
             try:
@@ -117,6 +117,7 @@ def sleep(data):
         speak("6 - Shut down computer function, I can shutdown your computer for you, just say 'shut down computer' and it will turn off in 30 seconds;")
         speak("7 - Let's see my e-mails function, say 'let's see my e-mails' and I will show you;")
         speak("8 - 'Show me pictures of' function, if the user says 'show me pictures of + thing' I will open it in the browser.")
+
     if "wait" in data:
         data = data.split(' ')
         time_to_sleep = data[1]
@@ -149,7 +150,8 @@ def sleep(data):
         string = "+".join(data)
         os.system("start msedge https://www.google.com/search?q=" + string)
     
-    if "classroom" in data:
+    #Working on this function later.
+    """ if "classroom" in data:
         data = data.split(" ")
         area = data[1]
         if area == 'mathematics':
@@ -168,7 +170,7 @@ def sleep(data):
             speak("Opening your physics 2 classroom.")
             os.system("start msedge https://classroom.google.com")
         else:
-            pass
+            pass """
     
     if "let's see my emails" in data:
         speak("Opening your e-mails")
@@ -179,7 +181,29 @@ def sleep(data):
         data = data.split(" ")
         string = "+".join(data)
         os.system("start msedge https://www.google.com/search?q=" + string)
+
+    if "verify the system" in data:
+        speak("Starting system verification. Wait, it can last some minutes.")
+        result = os.system("sfc /scannow")
+        if result == 0:
+            speak("System scan completed - No system health violations were detected.")
+        else:
+            speak("System scan completed - The integrity of the system may have been violated in some way, it is recommended that you take attitudes to correct it.")
     
+    if "check the system" in data:
+        speak("Starting system verification. Wait, it can last some minutes.")
+        result = os.system("sfc /scannow")
+        if result == 0:
+            speak("System scan completed - No system health violations were detected.")
+        else:
+            speak("System scan completed - The integrity of the system may have been violated in some way, it is recommended that you take attitudes to correct it.")
+    
+    if "good morning" in data:
+        speak(f"Good morning {user_name}.")
+        speak(f"The current date and time are {ctime()}")
+        speak(f"I will show you the news.")
+        os.system("start msedge https://news.google.com/")
+
     #Checks if one of the quit-words is in the new data.
     terminate(data)
 
