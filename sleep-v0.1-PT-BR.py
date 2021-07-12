@@ -81,6 +81,7 @@ def recordAudio():
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
     
+    data = data.lower()
     return data
 
 #Função para confirmar o desligamento do SLEEP
@@ -133,7 +134,7 @@ def sleep(data):
         response = random.choice(responses)
         speak(response)
 
-    if "Que horas são" in data:
+    if "que horas são" in data:
         speak(ctime())
 
     if "onde é" in data:
@@ -142,12 +143,12 @@ def sleep(data):
         speak("Espere um pouco, te mostrarei onde " + location + " é.")
         os.system("start msedge https://www.google.nl/maps/place/" + location + "/&amp;")
 
-    if "Desligar computador" in data:
+    if "desligar computador" in data:
         speak("Desligando!")
         speak("Seu computador será desligado em 30 segundos.")
         os.system("shutdown /s /t 30")
 
-    if "Como está o clima em" in data:
+    if "como está o clima em" in data:
         speak("Ok, irei te mostrar agora.")
         data = data.split(" ")
         string = "+".join(data)
@@ -163,7 +164,7 @@ def sleep(data):
         string = "+".join(data)
         os.system("start msedge https://www.google.com/search?q=" + string)
 
-    if "Verifique o sistema" in data:
+    if "verifique o sistema" in data:
         speak("Iniciando verificação do sistema. Aguarde, isso pode demorar alguns minutos.")
         resultado = os.system("sfc /scannow")
         if resultado == 0:
@@ -171,7 +172,7 @@ def sleep(data):
         else:
             speak("Verificação concluída - A integridade do sistema pode ter sido violada de alguma forma, é recomendado que tome providências para corrigir.")
     
-    if "Bom dia" in data:
+    if "bom dia" in data:
         speak(f"Bom dia {user_name}.")
         speak(f"A data e horário atuais são {ctime()}")
         speak(f"Irei te mostrar as principais notícias.")
