@@ -15,6 +15,10 @@ import pyttsx3 #Python text-to-speech-3
 from gtts import gTTS #Google text-to-speech
 from pygame import mixer #Tocar áudios
 import random #Aleatorizar algumas respostas, para que não fique repetitivo.
+from newsapi import NewsApiClient #API que é responsável por lidar com a coleta das notícias mais recentes
+
+# Configurando a newsAPI
+newsapi = NewsApiClient(api_key="SUA_API_KEY")
 
 #Palavras que podem ser utilizadas para finalizar o programa.
 words_to_terminate = ['desligar']
@@ -177,6 +181,7 @@ def sleep(data):
         speak(f"A data e horário atuais são {ctime()}")
         speak(f"Irei te mostrar as principais notícias.")
         os.system("start msedge https://news.google.com/")
+
     #Verifica se uma das palavras para terminar está em 'data'.
     terminate(data)
 
