@@ -27,12 +27,21 @@ import datetime
 import winsound
 
 
-# Configurando a newsAPI
-newsapi = NewsApiClient(api_key="SUA_API_KEY")
+# Configurando as TOKENS
+def init_tokens():
+    with open("./data/newsapitoken.0", "r", encoding="utf-8") as f:
+        NEWSAPITOKEN = f.read()
+    try:
+        newsapi = NewsApiClient(api_key=NEWSAPITOKEN)
+    except:
+        speak("Por favor, entre na pasta raiz do programa, na subpasta 'data' e digite a sua API KEY da Newsapi para funcionamento correto.")
 
 #Palavras que podem ser utilizadas para finalizar o programa.
-words_to_terminate = ['desligar']
+TERMINATE_STRS = ['desligar']
+AFFIRMATIVES = ['sim', 'com certeza', 'afirmativo', 'positivo']
 user_name = ""
+NOTE_STRS = ['anote', 'faça uma anotação']
+POMODORO_STRS = ['ligue o relógio pomodoro', 'relógio pomodoro', 'relógio de pomodoro']
 
 def getUserName():
     r = sr.Recognizer()
@@ -75,6 +84,80 @@ def greeting():
     time.sleep(.3)
     speak("No caso onde você queira me desligar apenas diga: 'desligar'.")
 
+#Subfunção/feature utilizada em outras features, coleta o tempo e data atual, em formato completo ou apenas horário.
+"""
+
+Utiliza métodos da biblioteca time como time.localtime() que retorna uma "time.scruct_time", e time.strftime() que formata struct_time em uma string.
+NOTA: O strftime funciona de acordo com parâmetros específicos: https://www.tutorialspoint.com/python/time_strftime.htm
+
+
+getting_localtime('complete') ~ retornará uma string completa com: "[Dia da semana], [Data] - [Horário]"
+getting_localtime('hour-minute') ~ retornará uma string com apenas horário: "[Hora]:[Minuto]"
+"""
+def getting_localtime(type_of_time):
+    string = []
+    def day():
+        if time.strftime("%A", time.localtime()) == "Monday":
+            string.append("Segunda-feira")
+        elif time.strftime("%A", time.localtime()) == "Tuesday":
+            string.append("Terça-feira")
+        elif time.strftime("%A", time.localtime()) == "Wednesday":
+            string.append("Quarta-feira")
+        elif time.strftime("%A", time.localtime()) == "Thursday":
+            string.append("Quinta-feira")
+        elif time.strftime("%A", time.localtime()) == "Friday":
+            string.append("Sexta-feira")
+        elif time.strftime("%A", time.localtime()) == "Saturday":
+            string.append("Sábado")
+        elif time.strftime("%A", time.localtime()) == "Sunday":
+            string.append("Domingo")
+    def day_of_month():
+        string.append(time.strftime("%d", time.localtime()))
+    
+    def month():
+        if time.strftime("%B", time.localtime()) == "January":
+            string.append("Janeiro")
+        elif time.strftime("%B", time.localtime()) == "Frebruary":
+            string.append("Fevereiro")
+        elif time.strftime("%B", time.localtime()) == "March":
+            string.append("Março")
+        elif time.strftime("%B", time.localtime()) == "April":
+            string.append("Abril")
+        elif time.strftime("%B", time.localtime()) == "May":
+            string.append("Maio")
+        elif time.strftime("%B", time.localtime()) == "June":
+            string.append("Junho")
+        elif time.strftime("%B", time.localtime()) == "July":
+            string.append("Julho")
+        elif time.strftime("%B", time.localtime()) == "August":
+            string.append("Agosto")
+        elif time.strftime("%B", time.localtime()) == "September":
+            string.append("Setembro")
+        elif time.strftime("%B", time.localtime()) == "October":
+            string.append("Outubro")
+        elif time.strftime("%B", time.localtime()) == "November":
+            string.append("Novembro")
+        elif time.strftime("%B", time.localtime()) == "December":
+            string.append("Dezembro")
+    
+    def year():
+        string.append(time.strftime("%Y", time.localtime()))
+
+    def hour_and_minute():
+        string.append(time.strftime("%H:%M", time.localtime()))
+
+    if type_of_time == 'hour-minute':
+        hour_and_minute()
+        return(string[0])
+
+    elif type_of_time == 'complete':
+        day()
+        day_of_month()
+        month()
+        year()
+        hour_and_minute()
+        return(string[0] + ", " + string[1] + " de " + string[2] + " de " + string[3] + ", " + string[4])
+
 #Pega a entrada de áudio do usuário
 def recordAudio():
     #Grava a entrada de áudio
@@ -100,7 +183,7 @@ def recordAudio():
 
 #Função para confirmar o desligamento do SLEEP
 def terminate(data):
-    for word in words_to_terminate:
+    for word in TERMINATE_STRS:
         if word in data:
             speak("Deseja me desligar?")
             r = sr.Recognizer()
