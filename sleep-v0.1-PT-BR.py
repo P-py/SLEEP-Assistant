@@ -1,4 +1,5 @@
-#VERSION 0.1
+# VERSION 0.2.6
+# Please go and read README.md file for correct usage
 
 """
 SLEEP assistente pessoal - codado e criado por Pedro Salviano
@@ -6,7 +7,6 @@ SLEEP assistente pessoal - codado e criado por Pedro Salviano
 Se divirta utilizando, se puder, leia todo o código fonte, especialmente os comentários para que possa entender todas as funções e utilizá-las corretamente.
 """
 
-from os.path import sameopenfile
 import speech_recognition as sr #Pega o audio do usuário
 from time import ctime #Módulo para indicar o tempo atual
 import time #Intervalos de tempo
@@ -16,6 +16,16 @@ from gtts import gTTS #Google text-to-speech
 from pygame import mixer #Tocar áudios
 import random #Aleatorizar algumas respostas, para que não fique repetitivo.
 from newsapi import NewsApiClient #API que é responsável por lidar com a coleta das notícias mais recentes
+import json #Administração de dados JSON
+import requests #HTTP Requests
+import math
+import serial #Comunicação serial
+import pyautogui
+import wikipedia #API da Wikipedia
+import subprocess
+import datetime
+import winsound
+
 
 # Configurando a newsAPI
 newsapi = NewsApiClient(api_key="SUA_API_KEY")
