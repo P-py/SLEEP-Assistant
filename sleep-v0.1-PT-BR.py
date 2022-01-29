@@ -1,4 +1,4 @@
-# VERSION 0.2.6
+# VERSION 0.2.7
 # Please go and read README.md file for correct usage
 
 """
@@ -7,6 +7,8 @@ SLEEP assistente pessoal - codado e criado por Pedro Salviano
 Se divirta utilizando, se puder, leia todo o código fonte, especialmente os comentários para que possa entender todas as funções e utilizá-las corretamente.
 """
 
+from fileinput import filename
+import sys
 import speech_recognition as sr #Pega o audio do usuário
 from time import ctime #Módulo para indicar o tempo atual
 import time #Intervalos de tempo
@@ -25,6 +27,7 @@ import wikipedia #API da Wikipedia
 import subprocess
 import datetime
 import winsound
+import pathlib
 
 
 # Configurando as TOKENS
@@ -42,6 +45,9 @@ AFFIRMATIVES = ['sim', 'com certeza', 'afirmativo', 'positivo']
 user_name = ""
 NOTE_STRS = ['anote', 'faça uma anotação']
 POMODORO_STRS = ['ligue o relógio pomodoro', 'relógio pomodoro', 'relógio de pomodoro']
+
+#Configurando o módulo da wikipedia
+wikipedia.set_lang("pt")
 
 def getUserName():
     r = sr.Recognizer()
@@ -204,6 +210,50 @@ def terminate(data):
             else:
                 pass
 
+def getting_news():
+    top_news_science = newsapi.get_top_headlines(country="br", language="pt", category="science")
+    top_news_tech = newsapi.get_top_headlines(country="br", language="pt", category="technology")
+    top_news_business = newsapi.get_top_headlines(country="br", language="pt", category="business")
+    total_news = int(top_news_business['totalResults']) + int(top_news_science['totalResults']) + int(top_news_tech['totalResults'])
+    speak(f"Eu coletei {total_news} principais notícias sobre Ciência, Tecnologia e Negócios de hoje em português, gostaria de escutar-las? Você também pode optar por escutar apenas uma categoria.")
+    data = recordAudio()
+    for word in AFFIRMATIVES:
+        if word in data:
+            speak("Ok, irei reproduzir todas.")
+            for new in top_news_science['articles']:
+                speak(f"{new['title']}")
+                time.sleep(3)
+            for new in top_news_tech['articles']:
+                speak(f"{new['title']}")
+                time.sleep(3)
+            for new in top_news_business['articles']:
+                speak(f"{new['title']}")
+                time.sleep(3)
+    if "apenas ciência" in data:
+        speak(f"Ok, irei reproduzir apenas as {top_news_science['totalResults']} notícias sobre ciência")
+        for new in top_news_science['articles']:
+            speak(f"{new['title']}")
+            time.sleep(3)
+    elif "apenas negócios" in data:
+        speak(f"Ok, irei reproduzir apenas as {top_news_business['totalResults']} notícias sobre negócios e finanças.")
+        for new in top_news_business['articles']:
+            speak(f"{new['title']}")
+    elif "apenas tecnologia" in data:
+        speak(f"Ok, irei reproduzir apenas as {top_news_tech['totalResults']} notícias sobre tecnologia.")
+        for new in top_news_tech['articles']:
+            speak(f"{new['title']}")
+    else:
+        speak("Ok, não irei reproduzir.")
+    print(data)
+
+def note(text):
+    date = datetime.datetime.now()
+    file_name = str(date).replace(":", "-") + "-note.txt"
+    with open(pathlib.Path().absolute()+filename, "w") as file:
+        file.write(text)
+    os.startfile(file_name)
+
+
 #Função principal, faz tudo funcionar junto.      
 def sleep(data):
     if "lista de funções" in data:
@@ -251,17 +301,27 @@ def sleep(data):
         string = "+".join(data)
         os.system("start msedge https://www.google.com/search?q=" + string)
     
+    #Works only for windows with Microsoft Edge installed
     if "vamos ver meus emails" in data:
+        non_valid_os = ['linux', 'linux2', 'cygwin', 'msys', 'darwin', 'os2', 'os2emx', 'riscos', 'atheos', 'freebsd7', 'freebsd8', 'freebsdN', 'openbsd6']
+        if sys.platform in non_valid_os:
+            speak("Desculpe, função indisponível para seu sistema.")
         speak("Abrindo seus e-mails.")
         os.system("start msedge https://mail.google.com/mail/u/0/#inbox")
     
     if "me mostre fotos de" in data:
+        non_valid_os = ['linux', 'linux2', 'cygwin', 'msys', 'darwin', 'os2', 'os2emx', 'riscos', 'atheos', 'freebsd7', 'freebsd8', 'freebsdN', 'openbsd6']
+        if sys.platform in non_valid_os:
+            speak("Desculpe, função indisponível para seu sistema.")
         speak("Ok, eu irei te mostrar!")
         data = data.split(" ")
         string = "+".join(data)
         os.system("start msedge https://www.google.com/search?q=" + string)
 
     if "verifique o sistema" in data:
+        non_valid_os = ['linux', 'linux2', 'cygwin', 'msys', 'darwin', 'os2', 'os2emx', 'riscos', 'atheos', 'freebsd7', 'freebsd8', 'freebsdN', 'openbsd6']
+        if sys.platform in non_valid_os:
+            speak("Desculpe, função indisponível para seu sistema.")
         speak("Iniciando verificação do sistema. Aguarde, isso pode demorar alguns minutos.")
         resultado = os.system("sfc /scannow")
         if resultado == 0:
@@ -273,7 +333,47 @@ def sleep(data):
         speak(f"Bom dia {user_name}.")
         speak(f"A data e horário atuais são {ctime()}")
         speak(f"Irei te mostrar as principais notícias.")
-        os.system("start msedge https://news.google.com/")
+        getting_news()
+    
+    if "principais notícias" in data:
+        getting_news()
+    
+    if "pesquise" in data:
+        non_valid_os = ['linux', 'linux2', 'cygwin', 'msys', 'darwin', 'os2', 'os2emx', 'riscos', 'atheos', 'freebsd7', 'freebsd8', 'freebsdN', 'openbsd6']
+        if sys.platform in non_valid_os:
+            speak("Desculpe, função indisponível para seu sistema.")
+        speak("Gostaria de pesquisar sobre algo?")
+        data = recordAudio()
+        for word in AFFIRMATIVES:
+            if word in data:
+                speak("Ok, sobre o que gostaria de pesquisar?")
+                data = recordAudio()
+                data = data.split(" ")
+                string = "+".join(data)
+                os.system("start msedge https://www.google.com/search?q="+string)
+                speak("Aqui está a sua pesquisa, aproveite!")
+
+    if "preciso de um resumo" in data:
+        speak("Gostaria de pesquisar sobre algo?")
+        data = recordAudio()
+        for word in affirmatives:
+            if word in data:
+                speak("Ok, sobre o que gostaria de pesquisar?")
+                data = recordAudio()
+                data = data.split(" ")
+                string = " ".join(data)
+                try:
+                    answer = wikipedia.summary(string)
+                    speak(f"Aqui está o resumo que eu encontrei sobre {string}: {answer}")
+                except:
+                    speak("Essa função está indisponível.")
+
+    for word in NOTE_STRS:
+        if word in data:
+            speak("O que gostaria que eu anotasse?")
+            anotação = recordAudio()
+            note(anotação)
+            speak("Acabei de anotar.")
 
     #Verifica se uma das palavras para terminar está em 'data'.
     terminate(data)
