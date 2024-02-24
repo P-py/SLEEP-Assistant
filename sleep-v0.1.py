@@ -1,18 +1,43 @@
+# Remake - v0.1
+# Please go and read the README file for correct use
+
 """
 SLEEP personal assistant - coded and created by Pedro Salviano
 
 Enjoy using it, if you can, read all the code, especially the comments, so you can understand yhe functions and use it well.
 """
 
-from os.path import sameopenfile
-import speech_recognition as sr #Get the audio input from the user
-from time import ctime #Current time
-import time #Time Intervals
-import os #Natural O.S functions
+import newsapi
+import speech_recognition as sr #Pega o audio do usuário
+from time import ctime #Módulo para indicar o tempo atual
+import time #Intervalos de tempo
+import os #Biblioteca que realiza funções naturais do sistema
 import pyttsx3 #Python text-to-speech-3
 from gtts import gTTS #Google text-to-speech
-from pygame import mixer #Playing audios
-import random #Randomize some answers
+from pygame import mixer #Tocar áudios
+import random #Aleatorizar algumas respostas, para que não fique repetitivo.
+from newsapi import NewsApiClient #API que é responsável por lidar com a coleta das notícias mais recentes
+import json #Biblioteca para JSON DATA
+import requests #Biblioteca para requests HTTP
+import math #Operações matemáticas adicionais
+import serial #Comunicação com o arduino
+import pyautogui #Automação envolvendo interfaces
+import wikipedia #API da Wikipedia, para integração
+import subprocess 
+import datetime
+import winsound
+
+NEWSAPITOKEN = ""
+
+def newsapi_init():
+    global newsapi
+
+    with open("./data/newsapitoken.0") as file:
+        NEWSAPITOKEN = file.read()
+    if NEWSAPITOKEN == "":
+        speak("Por favor, configure a sua API KEY da plataforma NEWSAPI na pasta de arquivos.")
+    else:
+        newsapi = NewsApiClient(api_key=NEWSAPITOKEN)
 
 #Words that can be used by the user to shutdown the program.
 words_to_terminate = ['bye', 'shutdown', 'exit', 'quit', 'gotosleep', 'goodbye']
